@@ -9,7 +9,7 @@
 #include <cmath>
 #include <random>
 #include <vector>
-#include <boost/type_index.hpp>
+#include <boost/core/demangle.hpp>
 #include <boost/math/special_functions/chebyshev.hpp>
 #include <boost/math/special_functions/chebyshev_transform.hpp>
 #include <boost/math/special_functions/sinc.hpp>

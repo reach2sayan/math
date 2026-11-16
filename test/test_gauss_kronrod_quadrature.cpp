@@ -12,7 +12,7 @@
 #if !defined(BOOST_NO_CXX11_DECLTYPE) && !defined(BOOST_NO_CXX11_TRAILING_RESULT_TYPES) && !defined(BOOST_NO_SFINAE_EXPR)
 
 #include <boost/math/concepts/real_concept.hpp>
-#include <boost/type_index.hpp>
+#include <boost/core/demangle.hpp>
 #include <boost/math/tools/test_value.hpp>
 #include <boost/math/quadrature/gauss_kronrod.hpp>
 #include <boost/math/special_functions/sinc.hpp>
@@ -256,7 +256,7 @@ double expected_error<61>(unsigned id)
 template<class Real, unsigned Points>
 void test_linear()
 {
-    std::cout << "Testing linear functions are integrated properly by gauss_kronrod on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing linear functions are integrated properly by gauss_kronrod on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real error;
     auto f = [](const Real& x)->Real
     {
@@ -278,7 +278,7 @@ void test_linear()
 template<class Real, unsigned Points>
 void test_quadratic()
 {
-    std::cout << "Testing quadratic functions are integrated properly by Gauss Kronrod on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing quadratic functions are integrated properly by Gauss Kronrod on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real error;
 
     auto f = [](const Real& x)->Real { return 5*x*x + 7*x + 12; };
@@ -293,7 +293,7 @@ void test_quadratic()
 template<class Real, unsigned Points>
 void test_ca()
 {
-    std::cout << "Testing integration of C(a) on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integration of C(a) on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = expected_error<Points>(test_ca_error_id);
     Real L1;
     Real error;
@@ -320,7 +320,7 @@ void test_ca()
 template<class Real, unsigned Points>
 void test_three_quadrature_schemes_examples()
 {
-    std::cout << "Testing integral in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integral in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = expected_error<Points>(test_three_quad_error_id);
     Real Q;
     Real Q_expected;
@@ -368,7 +368,7 @@ void test_three_quadrature_schemes_examples()
 template<class Real, unsigned Points>
 void test_integration_over_real_line()
 {
-    std::cout << "Testing integrals over entire real line in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integrals over entire real line in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = expected_error<Points>(test_integration_over_real_line_error_id);
     Real Q;
     Real Q_expected;
@@ -385,7 +385,7 @@ void test_integration_over_real_line()
 template<class Real, unsigned Points>
 void test_right_limit_infinite()
 {
-    std::cout << "Testing right limit infinite for Gauss Kronrod in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing right limit infinite for Gauss Kronrod in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = expected_error<Points>(test_right_limit_infinite_error_id);
     Real Q;
     Real Q_expected;
@@ -407,7 +407,7 @@ void test_right_limit_infinite()
 template<class Real, unsigned Points>
 void test_left_limit_infinite()
 {
-    std::cout << "Testing left limit infinite for Gauss Kronrod in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing left limit infinite for Gauss Kronrod in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = expected_error<Points>(test_left_limit_infinite_error_id);
     Real Q;
     Real Q_expected;
@@ -422,7 +422,7 @@ void test_left_limit_infinite()
 template<class Complex>
 void test_complex_lambert_w()
 {
-    std::cout << "Testing that complex-valued integrands are integrated correctly by Gaussian quadrature on type " << boost::typeindex::type_id<Complex>().pretty_name() << "\n";
+    std::cout << "Testing that complex-valued integrands are integrated correctly by Gaussian quadrature on type " << boost::core::demangle(typeid(Complex).name()) << "\n";
     typedef typename Complex::value_type Real;
     Real tol = 10e-9;
     using boost::math::constants::pi;

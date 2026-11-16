@@ -10,8 +10,8 @@
 #include <boost/test/tools/floating_point_comparison.hpp>
 #include <boost/math/special_functions/math_fwd.hpp>
 #include <boost/math/special_functions/bessel.hpp>
-#include <boost/type_traits/is_floating_point.hpp>
-#include <boost/array.hpp>
+#include <type_traits>
+#include <array>
 #include "functor.hpp"
 
 #include "handle_test_result.hpp"

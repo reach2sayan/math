@@ -7,17 +7,14 @@
 #include <boost/math/constants/constants.hpp>
 #include <boost/math/tools/precision.hpp>
 #include <boost/math/tools/polynomial.hpp>
-#include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/ublas/io.hpp>
-#include <boost/numeric/ublas/operation.hpp>
-#include <boost/cstdint.hpp>
-#include <boost/bind.hpp>
+#include <boost/math/tools/solve.hpp>
+#include <cstdint>
 #include <boost/math/special_functions/log1p.hpp>
 #include <boost/math/special_functions/relative_difference.hpp>
 #include <boost/lexical_cast.hpp>
-#include <boost/array.hpp>
+#include <array>
 #include <boost/random.hpp>
-#include <boost/chrono.hpp>
+#include <chrono>
 
 //
 // Define MP_TYPE
@@ -39,8 +36,7 @@
 #include <iomanip>
 #include <vector>
 
-using boost::numeric::ublas::matrix;
-using boost::numeric::ublas::vector;
+using boost::math::tools::matrix;
 
 struct lanczos_spot_data
 {
@@ -4768,7 +4764,7 @@ T get_max_error(const lanczos_info<T>& dat, R, double* time = nullptr)
 
    lanczos_rational<R> rational(dat);
 
-   stopwatch<boost::chrono::high_resolution_clock> w;
+   stopwatch<std::chrono::high_resolution_clock> w;
 
    for(unsigned i = 0; i < tests.size(); ++i)
    {
@@ -4786,7 +4782,7 @@ T get_max_error(const lanczos_info<T>& dat, R, double* time = nullptr)
    }
 
    if (time)
-      * time = boost::chrono::duration_cast<boost::chrono::duration<double>>(w.elapsed()).count();
+      * time = std::chrono::duration_cast<std::chrono::duration<double>>(w.elapsed()).count();
 
    return max_error;
 }
@@ -4802,7 +4798,7 @@ T get_max_error_sterling(double* time = nullptr)
 
    T max_err = 0;
 
-   stopwatch<boost::chrono::high_resolution_clock> w;
+   stopwatch<std::chrono::high_resolution_clock> w;
 
    for (unsigned i = 0; i < tests.size(); ++i)
    {
@@ -4815,7 +4811,7 @@ T get_max_error_sterling(double* time = nullptr)
    }
 
    if(time)
-      *time = boost::chrono::duration_cast<boost::chrono::duration<double>>(w.elapsed()).count();
+      *time = std::chrono::duration_cast<std::chrono::duration<double>>(w.elapsed()).count();
 
    return max_err;
 }

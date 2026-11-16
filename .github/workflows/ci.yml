@@ -27,7 +27,7 @@ concurrency:
 # users build with and gcc does not fuse below it, and inlining=on because b2's debug variant
 # otherwise adds -fno-inline. The CMake jobs get the same flags through CXXFLAGS.
 env:
-  FMA_B2: cxxflags=-mfma cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on
+  FMA_B2: cxxflags=-mfma cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on debug-symbols=off
 
 # b2 -l is no use as a hang detector: on POSIX it is a CPU-time rlimit that kills multithreaded
 # tests, and on Windows it misfires at launch.  So the test jobs have a job-level timeout instead.
@@ -82,7 +82,7 @@ jobs:
         run: cp -r $GITHUB_WORKSPACE/* libs/math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: ./bootstrap.sh
@@ -141,7 +141,7 @@ jobs:
         run: cp -r $GITHUB_WORKSPACE/* libs/math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: ./bootstrap.sh
@@ -165,7 +165,7 @@ jobs:
     runs-on: macos-latest
     timeout-minutes: 120
     env:
-      FMA_B2: cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on
+      FMA_B2: cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on debug-symbols=off
     strategy:
       fail-fast: false
       matrix:
@@ -185,7 +185,7 @@ jobs:
         run: cp -r $GITHUB_WORKSPACE/* libs/math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: ./bootstrap.sh
@@ -212,7 +212,7 @@ jobs:
       ARGS: toolset=${{ matrix.toolset }} address-model=64 cxxstd=${{ matrix.standard }}
       # -mfma brings in AVX. Win64 only aligns the stack to 16 bytes, but gcc emits aligned 32-byte
       # AVX moves for stack objects, which crash (gcc bug 54412). Have the assembler unalign them.
-      FMA_B2: cxxflags=-mfma cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on cxxflags=-Wa,-muse-unaligned-vector-move
+      FMA_B2: cxxflags=-mfma cxxflags=-ffp-contract=fast cxxflags=-O2 inlining=on debug-symbols=off cxxflags=-Wa,-muse-unaligned-vector-move
     strategy:
       fail-fast: false
       matrix:
@@ -232,7 +232,7 @@ jobs:
         run: xcopy /s /e /q %GITHUB_WORKSPACE% libs\math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: bootstrap
@@ -290,7 +290,7 @@ jobs:
         run: xcopy /s /e /q %GITHUB_WORKSPACE% libs\math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: bootstrap
@@ -432,7 +432,7 @@ jobs:
         run: cp -r $GITHUB_WORKSPACE/* libs/math
         working-directory: ../boost-root
       - name: Install deps
-        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools
+        run: python tools/boostdep/depinst/depinst.py math -C -I example -I tools -N spirit -N program_options -N iostreams
         working-directory: ../boost-root
       - name: Bootstrap
         run: ./bootstrap.sh

@@ -30,8 +30,7 @@
 // Boost macros
 #include "math_unit_test.hpp"
 
-#include <boost/array.hpp>
-#include <boost/type_traits/is_constructible.hpp>
+#include <array>
 
 #ifdef BOOST_MATH_TEST_MULTIPRECISION
 #include <boost/multiprecision/cpp_dec_float.hpp> // boost::multiprecision::cpp_dec_float_50

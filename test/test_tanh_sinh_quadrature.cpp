@@ -21,7 +21,7 @@
 #include <boost/math/special_functions/beta.hpp>
 #include <boost/math/special_functions/ellint_rc.hpp>
 #include <boost/math/special_functions/ellint_rj.hpp>
-#include <boost/type_index.hpp>
+#include <boost/core/demangle.hpp>
 
 #if __has_include(<stdfloat>)
 #  include <stdfloat>
@@ -220,7 +220,7 @@ Real get_convergence_tolerance()
 template<class Real>
 void test_linear()
 {
-    std::cout << "Testing linear functions are integrated properly by tanh_sinh on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing linear functions are integrated properly by tanh_sinh on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     auto integrator = get_integrator<Real>();
     auto f = [](const Real& x)
     {
@@ -242,7 +242,7 @@ void test_linear()
 template<class Real>
 void test_quadratic()
 {
-    std::cout << "Testing quadratic functions are integrated properly by tanh_sinh on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing quadratic functions are integrated properly by tanh_sinh on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     auto integrator = get_integrator<Real>();
     auto f = [](const Real& x) { return 5*x*x + 7*x + 12; };
     Real error;
@@ -256,7 +256,7 @@ void test_quadratic()
 template<class Real>
 void test_singular()
 {
-    std::cout << "Testing integration of endpoint singularities on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integration of endpoint singularities on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real error;
     Real L1;
     auto integrator = get_integrator<Real>();
@@ -274,7 +274,7 @@ void test_singular()
 template<class Real>
 void test_ca()
 {
-    std::cout << "Testing integration of C(a) on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integration of C(a) on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real tol = 10 * boost::math::tools::epsilon<Real>();
     Real error;
     Real L1;
@@ -338,7 +338,7 @@ void test_ca()
 template<class Real>
 void test_three_quadrature_schemes_examples()
 {
-    std::cout << "Testing integral in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integral in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
 
@@ -385,7 +385,7 @@ void test_three_quadrature_schemes_examples()
 template<class Real>
 void test_integration_over_real_line()
 {
-    std::cout << "Testing integrals over entire real line in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing integrals over entire real line in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     Real error;
@@ -423,7 +423,7 @@ void test_integration_over_real_line()
 template<class Real>
 void test_right_limit_infinite()
 {
-    std::cout << "Testing right limit infinite for tanh_sinh in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing right limit infinite for tanh_sinh in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     Real error;
@@ -456,7 +456,7 @@ void test_right_limit_infinite()
 template<class Real>
 void test_left_limit_infinite()
 {
-    std::cout << "Testing left limit infinite for tanh_sinh in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing left limit infinite for tanh_sinh in 'A Comparison of Three High Precision Quadrature Schemes' on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     const auto& integrator = get_integrator<Real>();
@@ -478,7 +478,7 @@ void test_horrible()
    BOOST_IF_CONSTEXPR (std::is_fundamental<Real>::value)
    #endif
    {
-      std::cout << "Testing Trefenthen's horrible integral on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+      std::cout << "Testing Trefenthen's horrible integral on type " << boost::core::demangle(typeid(Real).name()) << "\n";
       // We only know the integral to double precision, so requesting a higher tolerance doesn't make sense.
       Real Q;
       Real Q_expected;
@@ -501,7 +501,7 @@ void test_horrible()
 template<class Real>
 void test_nr_examples()
 {
-    std::cout << "Testing singular integrals from NR 4.5.4 on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing singular integrals from NR 4.5.4 on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     Real error;
@@ -527,7 +527,7 @@ void test_nr_examples()
 template<class Real>
 void test_early_termination()
 {
-    std::cout << "Testing Clenshaw & Curtis's example of integrand which fools termination schemes on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing Clenshaw & Curtis's example of integrand which fools termination schemes on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     Real error;
@@ -547,7 +547,7 @@ void test_early_termination()
 template<class Real>
 void test_crc()
 {
-    std::cout << "Testing CRC formulas on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+    std::cout << "Testing CRC formulas on type " << boost::core::demangle(typeid(Real).name()) << "\n";
     Real Q;
     Real Q_expected;
     Real error;
@@ -713,7 +713,7 @@ void test_sf()
 {
    using std::sqrt;
    // Test some special functions that we already know how to evaluate:
-   std::cout << "Testing special functions on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+   std::cout << "Testing special functions on type " << boost::core::demangle(typeid(Real).name()) << "\n";
    const auto& integrator = get_integrator<Real>();
 
    // incomplete beta:
@@ -757,7 +757,7 @@ template <class Real>
 void test_2_arg()
 {
    BOOST_MATH_STD_USING
-   std::cout << "Testing 2 argument functors on type " << boost::typeindex::type_id<Real>().pretty_name() << "\n";
+   std::cout << "Testing 2 argument functors on type " << boost::core::demangle(typeid(Real).name()) << "\n";
 
    const auto& integrator = get_integrator<Real>();
 

@@ -45,7 +45,7 @@ using std::endl;
 #include <limits> // numeric_limits
 using std::numeric_limits;
 
-#include <boost/cstdint.hpp>
+#include <cstdint>
 
 #include <boost/math/special_functions/nonfinite_num_facets.hpp>
 
