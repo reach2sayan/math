@@ -100,7 +100,9 @@ jobs:
         run: ./config_info_travis
         working-directory: ../boost-root/libs/config/test
       - name: Test
-        run: ../../../b2 -d0 toolset=$TOOLSET ${{ matrix.suite }} define=CI_SUPPRESS_KNOWN_ISSUES define=SLOW_COMPILER define=BOOST_MATH_RUN_MP_TESTS $FMA_B2
+        run: |
+          (while sleep 20; do echo "MEM $(free -m | awk 'NR==2{print "used="$3" avail="$7} NR==3{print "swap="$3}' | tr '\n' ' ')"; ps -eo rss,args --sort=-rss | awk 'NR>1 && NR<=4 && $1>1500000{s=""; for(i=2;i<=NF;i++) if($i ~ /\.(cpp|hpp)$/ || $i ~ /TEST=/ || $i ~ /^-O/ || $i=="-g") s=s" "$i; print "BIG " int($1/1024) "MB" s}'; done) &
+          ../../../b2 -d0 toolset=$TOOLSET ${{ matrix.suite }} define=CI_SUPPRESS_KNOWN_ISSUES define=SLOW_COMPILER define=BOOST_MATH_RUN_MP_TESTS $FMA_B2
         working-directory: ../boost-root/libs/math/test
   ubuntu-focal-no-eh:
     runs-on: ubuntu-24.04
